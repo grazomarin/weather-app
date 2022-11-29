@@ -1,4 +1,5 @@
 import "./index.scss";
+import "./scripts/style";
 import { requestWeather } from "./scripts/api";
 
 function getUserPosition() {

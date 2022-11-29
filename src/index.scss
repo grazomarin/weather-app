@@ -1,3 +1,37 @@
-.test {
-  color: red;
+@use "./modules/index" as *;
+
+html {
+  font-family: $circular;
+}
+
+body {
+  background-image: url(./images/clouds.jpg);
+  background-size: cover;
+}
+
+h1 {
+  font-size: $h1-size;
+  font-family: $alexandria;
+  font-weight: 400;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $head-margin-h $head-margin-w;
+
+  .weather {
+    &_degree {
+      background-color: white;
+      border: none;
+      width: 40px;
+      height: 30px;
+      margin: -2px;
+    }
+  }
+}
+
+#container {
+  margin: 20px;
 }
