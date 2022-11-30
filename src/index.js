@@ -1,29 +1,21 @@
 import "./index.scss";
-import "./scripts/style";
-import { requestWeather } from "./scripts/api";
+import { requestData } from "./scripts/api";
 
 function getUserPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
-getUserPosition()
-  .then(async (data) => {
-    try {
+  })
+    .then((data) => {
       const lat = data.coords.latitude;
       const lon = data.coords.longitude;
-      const weather = await requestWeather(undefined, lat, lon);
-      console.log(weather);
-    } catch (error) {
-      console.error(error);
-    }
-  })
-  .catch(async () => {
-    try {
-      const data = await requestWeather("new york");
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  });
+      return { lat, lon };
+    })
+    .catch(() => {
+      return undefined;
+    });
+}
+
+(async () => {
+  const { lat, lon } = await getUserPosition();
+  console.log(await requestData(undefined, lat, lon));
+})();

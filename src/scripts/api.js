@@ -1,6 +1,6 @@
 import { apiKey } from "./secured";
 
-async function requestWeather(location, lat, lon) {
+async function requestData(location, lat, lon) {
   const request = new Request(
     `https://api.openweathermap.org/data/2.5/weather?${
       location ? `q=${location}` : `lat=${lat}&lon=${lon}`
@@ -14,7 +14,7 @@ async function requestWeather(location, lat, lon) {
     const response = await fetch(request);
     if (response.status === 200) {
       const data = await response.json();
-      return data.main;
+      return data;
     } else {
       throw new Error("enter a vaild location");
     }
@@ -22,4 +22,4 @@ async function requestWeather(location, lat, lon) {
     console.error(error);
   }
 }
-export { requestWeather };
+export { requestData };

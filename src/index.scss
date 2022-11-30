@@ -1,37 +1,50 @@
 @use "./modules/index" as *;
 
-html {
-  font-family: $circular;
-}
-
-body {
-  background-image: url(./images/clouds.jpg);
-  background-size: cover;
-}
-
-h1 {
-  font-size: $h1-size;
+h1,
+h2,
+h3,
+h4 {
   font-family: $alexandria;
   font-weight: 400;
 }
 
-#header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: $head-margin-h $head-margin-w;
+h1 {
+  font-size: $h1-size;
+}
 
-  .weather {
-    &_degree {
-      background-color: white;
-      border: none;
-      width: 40px;
-      height: 30px;
-      margin: -2px;
-    }
-  }
+h2 {
+  font-size: $h2-size;
+}
+
+html {
+  font-family: $circular;
+  color: rgb(235, 235, 235);
+}
+
+body {
+  background: url(./images/clouds.jpg) no-repeat;
+  background-size: cover;
 }
 
 #container {
-  margin: 20px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+
+  .main {
+    flex: 2.5 1 auto;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .details {
+    flex: 1 1 auto;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.3)
+    );
+    backdrop-filter: blur(15px);
+  }
 }
