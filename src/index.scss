@@ -18,7 +18,7 @@ h2 {
 
 html {
   font-family: $circular;
-  color: rgb(235, 235, 235);
+  color: $white;
 }
 
 body {
@@ -32,12 +32,25 @@ body {
   display: flex;
 
   .main {
-    flex: 2.5 1 auto;
-    margin: 50px;
+    flex: 2 1 auto;
+    margin: 30px 10px 50px 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    &-info {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      &-secondary {
+        align-self: baseline;
+        display: flex;
+        flex-flow: column;
+      }
+    }
   }
+
   .details {
     flex: 1 1 auto;
     background-image: linear-gradient(
@@ -46,5 +59,32 @@ body {
       rgba(255, 255, 255, 0.3)
     );
     backdrop-filter: blur(15px);
+
+    display: grid;
+
+    &-buttons {
+      display: flex;
+      justify-content: right;
+
+      &_setDegree {
+        width: calc($search-dimensions / 2);
+        height: calc($search-dimensions / 2);
+        background-color: orange;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &-search {
+        width: $search-dimensions;
+        height: $search-dimensions;
+        justify-self: right;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 }

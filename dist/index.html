@@ -10,14 +10,26 @@
   <body>
     <div id="container">
       <div class="main">
-        <h2>weather</h2>
+        <h4>weather</h4>
         <div class="main-info">
           <h1>25<span>&#176;</span></h1>
+          <div class="main-info-secondary">
+            <h2 class="main-info-secondary_location">New York</h2>
+            <h4 class="main-info-secondary_date">8pm Tuesday, September 1</h4>
+          </div>
+          <div class="main-info_state"><h4>cloudy</h4></div>
         </div>
       </div>
       <div class="details">
-        <button class="details_setDegree C">C<span>&#176;</span></button>
-        <button class="details_setDegree F">F<span>&#176;</span></button>
+        <div class="details-buttons">
+          <div>
+            <h4 class="details-buttons_setDegree C">C<span>&#176;</span></h4>
+            <h4 class="details-buttons_setDegree F">F<span>&#176;</span></h4>
+          </div>
+          <div class="details-buttons-search">
+            <img class="searchIcon" src="" alt="" />
+          </div>
+        </div>
         <input class="details_searchBar" type="text" />
       </div>
     </div>
