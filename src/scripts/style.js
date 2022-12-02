@@ -4,8 +4,8 @@ import { FastAverageColor } from "fast-average-color";
 const bg = new Image();
 const searchImg = new Image(30, 30);
 
-const searchDiv = document.querySelector(".details-buttons-search");
-const degrees = document.querySelectorAll(".details-buttons_setDegree");
+const searchDiv = document.querySelector(".details-head-buttons-search");
+const degrees = document.querySelectorAll(".details-head-buttons_setDegree");
 
 bg.src = bgSrc;
 searchImg.src = searchSrc;

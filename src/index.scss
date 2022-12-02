@@ -16,8 +16,16 @@ h2 {
   font-size: $h2-size;
 }
 
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+}
+
 html {
-  font-family: $circular;
+  font-family: $alexandria;
   color: $white;
 }
 
@@ -32,7 +40,7 @@ body {
   display: flex;
 
   .main {
-    flex: 2 1 auto;
+    flex: 1 1 auto;
     margin: 30px 10px 50px 50px;
     display: flex;
     flex-direction: column;
@@ -52,38 +60,101 @@ body {
   }
 
   .details {
-    flex: 1 1 auto;
-    background-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.3)
-    );
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    gap: 50px;
     backdrop-filter: blur(15px);
+    overflow-y: auto;
 
     display: grid;
 
-    &-buttons {
+    &-head {
       display: flex;
-      justify-content: right;
+      justify-content: space-between;
 
-      &_setDegree {
-        width: calc($search-dimensions / 2);
-        height: calc($search-dimensions / 2);
-        background-color: orange;
+      &_searchBar {
+        width: 70%;
+        height: 36px;
+        margin: 0 auto;
+        color: $light-brown;
+        font-size: 1rem;
+        background-color: transparent;
+        font-family: $alexandria;
+        border-bottom: 2px $brown solid;
+        align-self: center;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        &::placeholder {
+          font-family: $alexandria;
+          font-size: 1rem;
+          color: $light-brown;
+        }
       }
 
-      &-search {
-        width: $search-dimensions;
-        height: $search-dimensions;
-        justify-self: right;
-
+      &-buttons {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-flow: column;
+        align-items: right;
+
+        &-cont {
+          display: flex;
+        }
+
+        &_setDegree {
+          position: absolute;
+          width: calc($search-dimensions / 2);
+          height: calc($search-dimensions / 2);
+          cursor: pointer;
+        }
+        .C {
+          right: 0;
+        }
+
+        &-search {
+          width: $search-dimensions;
+          height: $search-dimensions;
+          justify-self: right;
+          cursor: pointer;
+        }
+
+        &_setDegree,
+        &-search {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            filter: brightness(0.9);
+          }
+
+          &:active {
+            filter: brightness(0.8);
+          }
+        }
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    &-block {
+      display: flex;
+      flex-flow: column;
+      gap: 30px;
+      margin: 0 32px;
+      padding-bottom: 30px;
+      border-bottom: 2px $brown solid;
+
+      ul {
+        display: flex;
+        flex-flow: column;
+        gap: 22px;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+        }
       }
     }
   }
