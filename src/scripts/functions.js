@@ -1,7 +1,11 @@
-function KelvinToCelcius(kelvin) {
-  return +kelvin - 273;
+import dateFormat, { masks } from "dateformat";
+
+function round(number) {
+  return Math.round(number * 10) / 10;
 }
 
-function KelvinToFarenheit(kelvin) {
-  return ((+kelvin - 273) * 9) / 5 + 32;
-}
+function celciusToFarenheit(...numbers) {}
+
+function timezoneToDate(offset) {}
+
+export { round, timezoneToDate };

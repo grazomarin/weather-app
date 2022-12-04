@@ -4,22 +4,36 @@ import { FastAverageColor } from "fast-average-color";
 const bg = new Image();
 const searchImg = new Image(30, 30);
 
-const searchDiv = document.querySelector(".details-head-buttons-search");
+const searchBtn = document.querySelector(".details-head-buttons-search");
 const degrees = document.querySelectorAll(".details-head-buttons_setDegree");
+const searchCont = document.querySelector(".details-head-searchCont");
+const searchInput = document.querySelector(".details-head-searchCont_input");
 
 bg.src = bgSrc;
 searchImg.src = searchSrc;
-searchDiv.append(searchImg);
+searchBtn.append(searchImg);
 
 const fac = new FastAverageColor();
 
 fac
   .getColorAsync(bg)
   .then((color) => {
-    searchDiv.style.backgroundColor = color.hex;
+    searchBtn.style.backgroundColor = color.hex;
     degrees[0].style.backgroundColor = color.hex;
     degrees[1].style.backgroundColor = color.hex;
   })
   .catch((err) => {
     console.log(err);
   });
+
+function activateSearch() {
+  searchCont.classList.add("active");
+  setTimeout(() => {
+    searchInput.focus();
+  }, 700);
+}
+
+searchBtn.addEventListener("click", () => {
+  if (searchCont.classList.contains("active")) {
+  } else activateSearch();
+});

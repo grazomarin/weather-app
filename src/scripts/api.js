@@ -4,7 +4,7 @@ async function requestData(location, lat, lon) {
   const request = new Request(
     `https://api.openweathermap.org/data/2.5/weather?${
       location ? `q=${location}` : `lat=${lat}&lon=${lon}`
-    }&appid=${apiKey}`,
+    }&appid=${apiKey}&units=metric`,
     {
       mode: "cors",
     }
@@ -23,3 +23,5 @@ async function requestData(location, lat, lon) {
   }
 }
 export { requestData };
+
+// async function requestIcon(name)
