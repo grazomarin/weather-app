@@ -22,6 +22,25 @@ async function requestData(location, lat, lon) {
     console.error(error);
   }
 }
-export { requestData };
 
-// async function requestIcon(name)
+async function requestIcon(name) {
+  const request = new Request(
+    `http://openweathermap.org/img/wn/${name}@2x.png`,
+    {
+      mode: "cors",
+    }
+  );
+
+  try {
+    const response = await fetch(request);
+    if (response.status === 200) {
+      return response.url;
+    } else {
+      throw new Error("enter a vaild location");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { requestData, requestIcon };

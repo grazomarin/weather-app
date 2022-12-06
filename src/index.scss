@@ -52,9 +52,22 @@ body {
       align-items: center;
 
       &-secondary {
-        align-self: baseline;
         display: flex;
         flex-flow: column;
+      }
+
+      &-state {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-between;
+
+        &_image {
+          width: 70px;
+        }
+        &_name {
+          font-size: 0.9rem;
+        }
       }
     }
   }

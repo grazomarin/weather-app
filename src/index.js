@@ -1,7 +1,10 @@
 import "./index.scss";
 import "./scripts/style";
-import { requestData } from "./scripts/api";
-import { round, timezoneToDate } from "./scripts/functions";
+import { requestData, requestIcon } from "./scripts/api";
+import { round, tzToDate, updateTime } from "./scripts/functions";
+import { activateSearch } from "./scripts/style";
+
+let IntID;
 
 function getUserPosition() {
   return new Promise((resolve, reject) => {
@@ -23,7 +26,8 @@ function processData(data) {
   const clouds = data.clouds.all;
   const wind = round(data.wind.speed);
   const location = data.name;
-  const date = undefined;
+  const timezone = data.timezone;
+  const date = tzToDate(timezone);
 
   return {
     weather,
@@ -31,13 +35,15 @@ function processData(data) {
     clouds,
     wind,
     location,
+    timezone,
     date,
   };
 }
 
-function displayData(processed) {
+async function displayData(processed) {
   // if farenheit.active {display farenheit}
-  const { weather, description, clouds, wind, location, date } = processed;
+  const { weather, description, clouds, wind, location, timezone, date } =
+    processed;
 
   const tempElem = document.getElementById("temp");
   const minTempElem = document.getElementById("min");
@@ -49,6 +55,9 @@ function displayData(processed) {
   const windElem = document.getElementById("wind");
   const locationElem = document.getElementById("location");
   const descriptionElem = document.getElementById("description");
+  const imgElem = document.getElementById("image");
+  const dateElem = document.getElementById("date");
+  const url = await requestIcon(description.icon);
 
   tempElem.textContent = round(weather.temp);
   minTempElem.textContent = round(weather.temp_min);
@@ -60,7 +69,26 @@ function displayData(processed) {
   windElem.textContent = wind;
   locationElem.textContent = location;
   descriptionElem.textContent = description.description;
+  dateElem.textContent = date;
+
+  IntID = setInterval(updateTime, 1000, dateElem, timezone);
+
+  imgElem.src = url;
 }
+
+const searchBtn = document.querySelector(".details-head-buttons-search");
+const searchCont = document.querySelector(".details-head-searchCont");
+const input = document.getElementById("search");
+searchBtn.addEventListener("click", async () => {
+  if (searchCont.classList.contains("active")) {
+    const location = input.value;
+    const data = await requestData(location);
+    const processed = await processData(data);
+    clearInterval(IntID);
+    displayData(processed);
+    input.value = "";
+  } else activateSearch();
+});
 
 (async () => {
   const position = await getUserPosition();
@@ -69,7 +97,7 @@ function displayData(processed) {
     const data = await requestData(undefined, lat, lon);
     console.log(data);
   } else {
-    const data = await requestData("Moscow");
+    const data = await requestData("new york");
     console.log(data);
     const processed = await processData(data);
     displayData(processed);

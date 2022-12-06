@@ -5,21 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" defer></script>
-    <title>Document</title>
+    <title>weather</title>
   </head>
   <body>
     <div id="container">
       <div class="main">
         <h4>weather</h4>
         <div class="main-info">
-          <h1><span id="temp">25</span><span>&#176;</span></h1>
+          <h1><span id="temp"></span><span>&#176;</span></h1>
           <div class="main-info-secondary">
-            <h2 class="main-info-secondary_location" id="location">New York</h2>
-            <h4 class="main-info-secondary_date" id="time">
-              8pm Tuesday, September 1
-            </h4>
+            <h2 class="main-info-secondary_location" id="location"></h2>
+            <h4 class="main-info-secondary_date" id="date"></h4>
           </div>
-          <div><h4 id="description">cloudy</h4></div>
+          <div class="main-info-state">
+            <img class="main-info-state_image" src="" alt="" id="image" />
+            <h5 class="main-info-state_name" id="description"></h5>
+          </div>
         </div>
       </div>
 
@@ -30,6 +31,7 @@
               class="details-head-searchCont_input"
               type="text"
               placeholder="Search Location"
+              id="search"
             />
           </div>
           <div class="details-head-buttons">
@@ -53,28 +55,27 @@
           <ul>
             <li>
               <span>feels like</span
-              ><span><span id="feels_like">22</span><span>&#176;</span></span>
+              ><span><span id="feels_like"></span><span>&#176;</span></span>
             </li>
             <li>
               <span>min</span
-              ><span><span id="min">22</span><span>&#176;</span></span>
+              ><span><span id="min"></span><span>&#176;</span></span>
             </li>
             <li>
               <span>max</span
-              ><span><span id="max">27</span><span>&#176;</span></span>
+              ><span><span id="max"></span><span>&#176;</span></span>
             </li>
             <li>
-              <span>clouds</span><span><span id="clouds">30</span>%</span>
+              <span>clouds</span><span><span id="clouds"></span>%</span>
             </li>
             <li>
-              <span>wind</span><span><span id="wind">20</span>km/h</span>
+              <span>wind</span><span><span id="wind"></span>km/h</span>
             </li>
             <li>
-              <span>humidity</span><span><span id="humidity">20</span>%</span>
+              <span>humidity</span><span><span id="humidity"></span>%</span>
             </li>
             <li>
-              <span>pressure</span
-              ><span><span id="pressure">1000</span>mb</span>
+              <span>pressure</span><span><span id="pressure"></span>mb</span>
             </li>
           </ul>
         </div>

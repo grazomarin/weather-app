@@ -7,7 +7,7 @@ const searchImg = new Image(30, 30);
 const searchBtn = document.querySelector(".details-head-buttons-search");
 const degrees = document.querySelectorAll(".details-head-buttons_setDegree");
 const searchCont = document.querySelector(".details-head-searchCont");
-const searchInput = document.querySelector(".details-head-searchCont_input");
+const searchInput = document.getElementById("search");
 
 bg.src = bgSrc;
 searchImg.src = searchSrc;
@@ -33,7 +33,4 @@ function activateSearch() {
   }, 700);
 }
 
-searchBtn.addEventListener("click", () => {
-  if (searchCont.classList.contains("active")) {
-  } else activateSearch();
-});
+export { activateSearch };
