@@ -1,10 +1,10 @@
 import { apiKey } from "./secured";
 
-async function requestData(location, lat, lon) {
+async function requestData(unit, location, lat, lon) {
   const request = new Request(
     `https://api.openweathermap.org/data/2.5/weather?${
       location ? `q=${location}` : `lat=${lat}&lon=${lon}`
-    }&appid=${apiKey}&units=metric`,
+    }&appid=${apiKey}&units=${unit}`,
     {
       mode: "cors",
     }
@@ -14,6 +14,7 @@ async function requestData(location, lat, lon) {
     const response = await fetch(request);
     if (response.status === 200) {
       const data = await response.json();
+      console.log(data);
       return data;
     } else {
       throw new Error("enter a vaild location");

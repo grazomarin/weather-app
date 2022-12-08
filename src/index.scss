@@ -135,8 +135,13 @@ body {
           height: calc($search-dimensions / 2);
           cursor: pointer;
         }
+
         .C {
           right: 0;
+        }
+
+        .active {
+          filter: brightness(0.8);
         }
 
         &-search {

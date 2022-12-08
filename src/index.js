@@ -1,10 +1,22 @@
 import "./index.scss";
 import "./scripts/style";
 import { requestData, requestIcon } from "./scripts/api";
-import { round, tzToDate, updateTime } from "./scripts/functions";
+import {
+  round,
+  celciusToFarenheit,
+  farenheitToCelcius,
+  tzToDate,
+  updateTime,
+} from "./scripts/functions";
 import { activateSearch } from "./scripts/style";
 
 let IntID;
+let locationGlob;
+const searchBtn = document.querySelector(".details-head-buttons-search");
+const searchCont = document.querySelector(".details-head-searchCont");
+const input = document.getElementById("search");
+const cBtn = document.querySelector(".C");
+const fBtn = document.querySelector(".F");
 
 function getUserPosition() {
   return new Promise((resolve, reject) => {
@@ -41,7 +53,6 @@ function processData(data) {
 }
 
 async function displayData(processed) {
-  // if farenheit.active {display farenheit}
   const { weather, description, clouds, wind, location, timezone, date } =
     processed;
 
@@ -66,40 +77,70 @@ async function displayData(processed) {
   humidityElem.textContent = weather.humidity;
   pressureElem.textContent = weather.pressure;
   cloudsElem.textContent = clouds;
-  windElem.textContent = wind;
+  windElem.textContent = `${wind}${
+    fBtn.classList.contains("active") ? "mp/h" : "m/s"
+  }`;
   locationElem.textContent = location;
   descriptionElem.textContent = description.description;
   dateElem.textContent = date;
 
-  IntID = setInterval(updateTime, 1000, dateElem, timezone);
+  IntID = updateTime(dateElem, timezone);
 
   imgElem.src = url;
 }
 
-const searchBtn = document.querySelector(".details-head-buttons-search");
-const searchCont = document.querySelector(".details-head-searchCont");
-const input = document.getElementById("search");
+async function processSearch(unit, inputVal) {
+  clearInterval(IntID);
+  const location = inputVal;
+  const data = await requestData(unit, location);
+  const processed = await processData(data);
+  displayData(processed);
+}
+
+function checkUnit() {
+  return cBtn.classList.contains("active") ? "metric" : "imperial";
+}
+
 searchBtn.addEventListener("click", async () => {
   if (searchCont.classList.contains("active")) {
-    const location = input.value;
-    const data = await requestData(location);
-    const processed = await processData(data);
-    clearInterval(IntID);
-    displayData(processed);
+    processSearch(checkUnit(), input.value);
+    locationGlob = input.value;
     input.value = "";
   } else activateSearch();
+});
+
+input.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") {
+    processSearch(checkUnit(), input.value);
+    locationGlob = input.value;
+    input.value = "";
+  }
+});
+
+cBtn.addEventListener("click", () => {
+  if (cBtn.classList.contains("active")) return;
+  cBtn.classList.add("active");
+  fBtn.classList.remove("active");
+  processSearch(checkUnit(), locationGlob);
+});
+
+fBtn.addEventListener("click", () => {
+  if (fBtn.classList.contains("active")) return;
+  fBtn.classList.add("active");
+  cBtn.classList.remove("active");
+  processSearch(checkUnit(), locationGlob);
 });
 
 (async () => {
   const position = await getUserPosition();
   if (position) {
     const { lat, lon } = position;
-    const data = await requestData(undefined, lat, lon);
+    const data = await requestData("metric", undefined, lat, lon);
     console.log(data);
   } else {
-    const data = await requestData("new york");
-    console.log(data);
-    const processed = await processData(data);
-    displayData(processed);
+    processSearch("metric", "moscow");
+    locationGlob = "moscow";
   }
 })();
+
+// on degreeBtn click take data present, convert it into degree given, display it
