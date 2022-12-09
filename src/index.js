@@ -65,7 +65,6 @@ async function displayData(processed) {
   const cloudsElem = document.getElementById("clouds");
   const windElem = document.getElementById("wind");
   const locationElem = document.getElementById("location");
-  const descriptionElem = document.getElementById("description");
   const imgElem = document.getElementById("image");
   const dateElem = document.getElementById("date");
   const url = await requestIcon(description.icon);
@@ -81,7 +80,6 @@ async function displayData(processed) {
     fBtn.classList.contains("active") ? "mp/h" : "m/s"
   }`;
   locationElem.textContent = location;
-  descriptionElem.textContent = description.description;
   dateElem.textContent = date;
 
   IntID = updateTime(dateElem, timezone);
@@ -89,10 +87,10 @@ async function displayData(processed) {
   imgElem.src = url;
 }
 
-async function processSearch(unit, inputVal) {
+async function processSearch(unit, inputVal, lat, lon) {
   clearInterval(IntID);
   const location = inputVal;
-  const data = await requestData(unit, location);
+  const data = await requestData(unit, location, lat, lon);
   const processed = await processData(data);
   displayData(processed);
 }
@@ -101,7 +99,7 @@ function checkUnit() {
   return cBtn.classList.contains("active") ? "metric" : "imperial";
 }
 
-searchBtn.addEventListener("click", async () => {
+searchBtn.addEventListener("click", () => {
   if (searchCont.classList.contains("active")) {
     processSearch(checkUnit(), input.value);
     locationGlob = input.value;
@@ -109,7 +107,7 @@ searchBtn.addEventListener("click", async () => {
   } else activateSearch();
 });
 
-input.addEventListener("keypress", async (e) => {
+input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     processSearch(checkUnit(), input.value);
     locationGlob = input.value;
@@ -121,26 +119,28 @@ cBtn.addEventListener("click", () => {
   if (cBtn.classList.contains("active")) return;
   cBtn.classList.add("active");
   fBtn.classList.remove("active");
-  processSearch(checkUnit(), locationGlob);
+  Array.isArray(locationGlob)
+    ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
+    : processSearch(checkUnit(), locationGlob);
 });
 
 fBtn.addEventListener("click", () => {
   if (fBtn.classList.contains("active")) return;
   fBtn.classList.add("active");
   cBtn.classList.remove("active");
-  processSearch(checkUnit(), locationGlob);
+  Array.isArray(locationGlob)
+    ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
+    : processSearch(checkUnit(), locationGlob);
 });
 
 (async () => {
   const position = await getUserPosition();
   if (position) {
     const { lat, lon } = position;
-    const data = await requestData("metric", undefined, lat, lon);
-    console.log(data);
+    locationGlob = [lat, lon];
+    processSearch("metric", undefined, lat, lon);
   } else {
     processSearch("metric", "moscow");
     locationGlob = "moscow";
   }
 })();
-
-// on degreeBtn click take data present, convert it into degree given, display it

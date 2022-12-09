@@ -33,4 +33,29 @@ function activateSearch() {
   }, 700);
 }
 
+const tablet = window.matchMedia("(max-width: 1000px)");
+const mobile = window.matchMedia("(max-width: 650px)");
+const tempCont = document.querySelector(".main-info-primary");
+const infoCont = document.querySelector(".main-info");
+const icon = document.getElementById("image");
+
+function handleTabletSize(size) {
+  if (size.matches) {
+    tempCont.append(icon);
+  } else {
+    infoCont.append(icon);
+  }
+}
+
+function handleMobileSize(size) {
+  if (size.matches) {
+    infoCont.append(icon);
+  }
+}
+
+mobile.addListener(handleMobileSize);
+tablet.addListener(handleTabletSize);
+handleTabletSize(tablet);
+handleMobileSize(mobile);
+
 export { activateSearch };
