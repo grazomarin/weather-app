@@ -1,30 +1,44 @@
 import searchSrc from "../images/search-icon.svg";
-import bgSrc from "../images/clouds.jpg";
+import night800 from "../images/clearNight.jpg";
+import day800 from "../images/clearDay.jpg";
+import day700 from "../images/mist.jpg";
+import day600 from "../images/snowDay.jpg";
+import day500 from "../images/rain.jpg";
+import day300 from "../images/rain.jpg";
+import day200 from "../images/thunderstorm.jpg";
 import { FastAverageColor } from "fast-average-color";
-const bg = new Image();
-const searchImg = new Image(30, 30);
 
 const searchBtn = document.querySelector(".details-head-buttons-search");
+const searchSVG = document.querySelector(
+  ".details-head-buttons-search_searchIcon"
+);
 const degrees = document.querySelectorAll(".details-head-buttons_setDegree");
 const searchCont = document.querySelector(".details-head-searchCont");
 const searchInput = document.getElementById("search");
+const detailsBlock = document.querySelector(".details-block");
+const body = document.querySelector("body");
+const html = document.querySelector("html");
+const input = document.getElementById("search");
 
-bg.src = bgSrc;
-searchImg.src = searchSrc;
-searchBtn.append(searchImg);
+function setUIColor(src) {
+  const fac = new FastAverageColor();
 
-const fac = new FastAverageColor();
+  const bg = new Image();
+  bg.src = src;
 
-fac
-  .getColorAsync(bg)
-  .then((color) => {
-    searchBtn.style.backgroundColor = color.hex;
-    degrees[0].style.backgroundColor = color.hex;
-    degrees[1].style.backgroundColor = color.hex;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  fac
+    .getColorAsync(bg)
+    .then((color) => {
+      searchBtn.style.backgroundColor = color.hex;
+      degrees[0].style.backgroundColor = color.hex;
+      degrees[1].style.backgroundColor = color.hex;
+      searchCont.style.backgroundColor = color.hex;
+      detailsBlock.style.borderColor = color.hex;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 function activateSearch() {
   searchCont.classList.add("active");
@@ -58,4 +72,48 @@ tablet.addListener(handleTabletSize);
 handleTabletSize(tablet);
 handleMobileSize(mobile);
 
-export { activateSearch };
+const white = "rgb(235, 235, 235)";
+const black = "rgb(14, 14, 14)";
+
+function setTextColor(colorStr) {
+  html.style.color = colorStr;
+  searchSVG.style.fill = colorStr;
+  input.style.color = colorStr;
+  input.style.borderColor = colorStr;
+}
+
+function setClimateBackground(id) {
+  const firstNumStr = Array.from(`${id}`)[0];
+
+  let src;
+  switch (firstNumStr) {
+    case "2":
+      src = day200;
+      setTextColor(white);
+      break;
+    case "3":
+      src = day300;
+      setTextColor(white);
+      break;
+    case "5":
+      src = day500;
+      setTextColor(white);
+      break;
+    case "6":
+      src = day600;
+      setTextColor(black);
+      break;
+    case "7":
+      src = day700;
+      setTextColor(black);
+      break;
+    case "8":
+      src = day800;
+      setTextColor(black);
+      break;
+  }
+  body.style.backgroundImage = `url(${src})`;
+  setUIColor(src);
+}
+
+export { activateSearch, setClimateBackground };

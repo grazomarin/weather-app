@@ -30,8 +30,10 @@ html {
 }
 
 body {
-  background: url(./images/clouds.jpg) no-repeat;
+  background-color: black;
+  background-repeat: no-repeat;
   background-size: cover;
+  transition: all 0.7s ease;
   @media (max-width: $mobile) {
     background-repeat: repeat-y;
   }
@@ -129,7 +131,6 @@ body {
       &-searchCont {
         width: 100%;
         height: $search-dimensions;
-        background-color: $brown;
         padding: 0 $side-margin;
         translate: 150%;
         transition: all 0.7s ease;
@@ -148,13 +149,14 @@ body {
           font-size: 1rem;
           background-color: transparent;
           font-family: $alexandria;
-          border-bottom: 2px $white solid;
+          border-bottom: 2px solid;
+          border-color: $white;
           align-self: center;
 
           &::placeholder {
             font-family: $alexandria;
             font-size: 1rem;
-            color: $white;
+            color: inherit;
           }
         }
       }
@@ -163,6 +165,7 @@ body {
         display: flex;
         flex-flow: column;
         align-items: right;
+        transition: all 0.7s ease;
 
         &-cont {
           display: flex;
@@ -184,6 +187,12 @@ body {
           justify-self: right;
           cursor: pointer;
           z-index: 2;
+
+          &_searchIcon {
+            fill: $white;
+            width: 30px;
+            height: 30px;
+          }
         }
 
         &_setDegree,

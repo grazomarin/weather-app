@@ -8,7 +8,7 @@ import {
   tzToDate,
   updateTime,
 } from "./scripts/functions";
-import { activateSearch } from "./scripts/style";
+import { activateSearch, setClimateBackground } from "./scripts/style";
 
 let IntID;
 let locationGlob;
@@ -68,6 +68,7 @@ async function displayData(processed) {
   const imgElem = document.getElementById("image");
   const dateElem = document.getElementById("date");
   const url = await requestIcon(description.icon);
+  const climID = description.id;
 
   tempElem.textContent = round(weather.temp);
   minTempElem.textContent = round(weather.temp_min);
@@ -82,8 +83,8 @@ async function displayData(processed) {
   locationElem.textContent = location;
   dateElem.textContent = date;
 
+  setClimateBackground(climID);
   IntID = updateTime(dateElem, timezone);
-
   imgElem.src = url;
 }
 
