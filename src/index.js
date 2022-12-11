@@ -1,22 +1,11 @@
 import "./index.scss";
 import "./scripts/style";
 import { requestData, requestIcon } from "./scripts/api";
-import {
-  round,
-  celciusToFarenheit,
-  farenheitToCelcius,
-  tzToDate,
-  updateTime,
-} from "./scripts/functions";
-import { activateSearch, setClimateBackground } from "./scripts/style";
+import { round, tzToDate, updateTime } from "./scripts/functions";
+import { activateSearch, setClimateBackground, elems } from "./scripts/style";
 
 let IntID;
 let locationGlob;
-const searchBtn = document.querySelector(".details-head-buttons-search");
-const searchCont = document.querySelector(".details-head-searchCont");
-const input = document.getElementById("search");
-const cBtn = document.querySelector(".C");
-const fBtn = document.querySelector(".F");
 
 function getUserPosition() {
   return new Promise((resolve, reject) => {
@@ -32,103 +21,65 @@ function getUserPosition() {
     });
 }
 
-function processData(data) {
-  const weather = data.main;
-  const description = data.weather[0];
-  const clouds = data.clouds.all;
-  const wind = round(data.wind.speed);
-  const location = data.name;
-  const timezone = data.timezone;
-  const date = tzToDate(timezone);
-
-  return {
-    weather,
-    description,
-    clouds,
-    wind,
-    location,
-    timezone,
-    date,
-  };
-}
-
-async function displayData(processed) {
-  const { weather, description, clouds, wind, location, timezone, date } =
-    processed;
-
-  const tempElem = document.getElementById("temp");
-  const minTempElem = document.getElementById("min");
-  const maxTempElem = document.getElementById("max");
-  const feels_likeElem = document.getElementById("feels_like");
-  const humidityElem = document.getElementById("humidity");
-  const pressureElem = document.getElementById("pressure");
-  const cloudsElem = document.getElementById("clouds");
-  const windElem = document.getElementById("wind");
-  const locationElem = document.getElementById("location");
-  const imgElem = document.getElementById("image");
-  const dateElem = document.getElementById("date");
-  const url = await requestIcon(description.icon);
-  const climID = description.id;
-
-  tempElem.textContent = round(weather.temp);
-  minTempElem.textContent = round(weather.temp_min);
-  maxTempElem.textContent = round(weather.temp_max);
-  feels_likeElem.textContent = round(weather.feels_like);
-  humidityElem.textContent = weather.humidity;
-  pressureElem.textContent = weather.pressure;
-  cloudsElem.textContent = clouds;
-  windElem.textContent = `${wind}${
-    fBtn.classList.contains("active") ? "mp/h" : "m/s"
+async function displayData(data) {
+  const url = await requestIcon(data.weather[0].icon);
+  elems.temp.textContent = round(data.main.temp);
+  elems.minTemp.textContent = round(data.main.temp_min);
+  elems.maxTemp.textContent = round(data.main.temp_max);
+  elems.feels_like.textContent = round(data.main.feels_like);
+  elems.humidity.textContent = data.main.humidity;
+  elems.pressure.textContent = data.main.pressure;
+  elems.clouds.textContent = data.clouds.all;
+  elems.wind.textContent = `${round(data.wind.speed)}${
+    elems.f.classList.contains("active") ? "mp/h" : "m/s"
   }`;
-  locationElem.textContent = location;
-  dateElem.textContent = date;
-
-  setClimateBackground(climID);
-  IntID = updateTime(dateElem, timezone);
-  imgElem.src = url;
+  elems.location.textContent = data.name;
+  elems.date.textContent = tzToDate(data.timezone);
+  elems.img.src = url;
 }
 
 async function processSearch(unit, inputVal, lat, lon) {
   clearInterval(IntID);
   const location = inputVal;
   const data = await requestData(unit, location, lat, lon);
-  const processed = await processData(data);
-  displayData(processed);
+  displayData(data);
+  setClimateBackground(data.weather[0].id);
+  IntID = updateTime(elems.date, data.timezone);
 }
 
 function checkUnit() {
-  return cBtn.classList.contains("active") ? "metric" : "imperial";
+  return elems.c.classList.contains("active") ? "metric" : "imperial";
 }
 
-searchBtn.addEventListener("click", () => {
-  if (searchCont.classList.contains("active")) {
-    processSearch(checkUnit(), input.value);
-    locationGlob = input.value;
-    input.value = "";
+elems.searchBtn.addEventListener("click", () => {
+  if (elems.searchCont.classList.contains("active")) {
+    processSearch(checkUnit(), elems.input.value);
+    locationGlob = elems.input.value;
+    elems.input.value = "";
   } else activateSearch();
 });
 
-input.addEventListener("keypress", (e) => {
+elems.input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    processSearch(checkUnit(), input.value);
-    locationGlob = input.value;
-    input.value = "";
+    processSearch(checkUnit(), elems.input.value);
+    locationGlob = elems.input.value;
+    elems.input.value = "";
   }
 });
 
-cBtn.addEventListener("click", () => {
-  if (cBtn.classList.contains("active")) return;
-  cBtn.classList.add("active");
-  fBtn.classList.remove("active");
+elems.c.addEventListener("click", () => {
+  if (elems.c.classList.contains("active")) return;
+  elems.c.classList.add("active");
+  elems.f.classList.remove("active");
   Array.isArray(locationGlob)
     ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
     : processSearch(checkUnit(), locationGlob);
 });
 
-fBtn.addEventListener("click", () => {
-  if (fBtn.classList.contains("active")) return;
-  fBtn.classList.add("active");
-  cBtn.classList.remove("active");
+elems.f.addEventListener("click", () => {
+  if (elems.f.classList.contains("active")) return;
+  elems.f.classList.add("active");
+  elems.c.classList.remove("active");
   Array.isArray(locationGlob)
     ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
     : processSearch(checkUnit(), locationGlob);

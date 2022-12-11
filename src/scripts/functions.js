@@ -4,13 +4,6 @@ function round(number) {
   return Math.round(number * 10) / 10;
 }
 
-function celciusToFarenheit(number) {
-  return (+number * 9) / 5 + 32;
-}
-function farenheitToCelcius(number) {
-  return ((+number - 32) * 5) / 9;
-}
-
 function tzToDate(seconds) {
   const difference = +seconds / 3600;
   const date = new Date();
@@ -25,4 +18,4 @@ const updateTime = (elem, timezone) => {
   return int;
 };
 
-export { round, celciusToFarenheit, farenheitToCelcius, tzToDate, updateTime };
+export { round, tzToDate, updateTime };

@@ -1,4 +1,3 @@
-import searchSrc from "../images/search-icon.svg";
 import night800 from "../images/clearNight.jpg";
 import day800 from "../images/clearDay.jpg";
 import day700 from "../images/mist.jpg";
@@ -8,17 +7,31 @@ import day300 from "../images/rain.jpg";
 import day200 from "../images/thunderstorm.jpg";
 import { FastAverageColor } from "fast-average-color";
 
-const searchBtn = document.querySelector(".details-head-buttons-search");
-const searchSVG = document.querySelector(
-  ".details-head-buttons-search_searchIcon"
-);
-const degrees = document.querySelectorAll(".details-head-buttons_setDegree");
-const searchCont = document.querySelector(".details-head-searchCont");
-const searchInput = document.getElementById("search");
-const detailsBlock = document.querySelector(".details-block");
-const body = document.querySelector("body");
-const html = document.querySelector("html");
-const input = document.getElementById("search");
+const elems = {
+  body: document.querySelector("body"),
+  html: document.querySelector("html"),
+  temp: document.getElementById("temp"),
+  minTemp: document.getElementById("min"),
+  maxTemp: document.getElementById("max"),
+  feels_like: document.getElementById("feels_like"),
+  humidity: document.getElementById("humidity"),
+  pressure: document.getElementById("pressure"),
+  clouds: document.getElementById("clouds"),
+  wind: document.getElementById("wind"),
+  location: document.getElementById("location"),
+  img: document.getElementById("image"),
+  date: document.getElementById("date"),
+  input: document.getElementById("search"),
+  icon: document.getElementById("image"),
+  f: document.querySelector(".F"),
+  c: document.querySelector(".C"),
+  searchBtn: document.querySelector(".details-head-buttons-search"),
+  searchCont: document.querySelector(".details-head-searchCont"),
+  searchSVG: document.querySelector(".details-head-buttons-search_searchIcon"),
+  detailsBlock: document.querySelector(".details-block"),
+  tempCont: document.querySelector(".main-info-primary"),
+  infoCont: document.querySelector(".main-info"),
+};
 
 function setUIColor(src) {
   const fac = new FastAverageColor();
@@ -29,11 +42,11 @@ function setUIColor(src) {
   fac
     .getColorAsync(bg)
     .then((color) => {
-      searchBtn.style.backgroundColor = color.hex;
-      degrees[0].style.backgroundColor = color.hex;
-      degrees[1].style.backgroundColor = color.hex;
-      searchCont.style.backgroundColor = color.hex;
-      detailsBlock.style.borderColor = color.hex;
+      elems.searchBtn.style.backgroundColor = color.hex;
+      elems.f.style.backgroundColor = color.hex;
+      elems.c.style.backgroundColor = color.hex;
+      elems.searchCont.style.backgroundColor = color.hex;
+      elems.detailsBlock.style.borderColor = color.hex;
     })
     .catch((err) => {
       console.log(err);
@@ -41,29 +54,26 @@ function setUIColor(src) {
 }
 
 function activateSearch() {
-  searchCont.classList.add("active");
+  elems.searchCont.classList.add("active");
   setTimeout(() => {
-    searchInput.focus();
+    elems.input.focus();
   }, 700);
 }
 
 const tablet = window.matchMedia("(max-width: 1000px)");
 const mobile = window.matchMedia("(max-width: 650px)");
-const tempCont = document.querySelector(".main-info-primary");
-const infoCont = document.querySelector(".main-info");
-const icon = document.getElementById("image");
 
 function handleTabletSize(size) {
   if (size.matches) {
-    tempCont.append(icon);
+    elems.tempCont.append(elems.icon);
   } else {
-    infoCont.append(icon);
+    elems.infoCont.append(elems.icon);
   }
 }
 
 function handleMobileSize(size) {
   if (size.matches) {
-    infoCont.append(icon);
+    elems.infoCont.append(elems.icon);
   }
 }
 
@@ -76,10 +86,10 @@ const white = "rgb(235, 235, 235)";
 const black = "rgb(14, 14, 14)";
 
 function setTextColor(colorStr) {
-  html.style.color = colorStr;
-  searchSVG.style.fill = colorStr;
-  input.style.color = colorStr;
-  input.style.borderColor = colorStr;
+  elems.html.style.color = colorStr;
+  elems.searchSVG.style.fill = colorStr;
+  elems.input.style.color = colorStr;
+  elems.input.style.borderColor = colorStr;
 }
 
 function setClimateBackground(id) {
@@ -112,8 +122,8 @@ function setClimateBackground(id) {
       setTextColor(black);
       break;
   }
-  body.style.backgroundImage = `url(${src})`;
+  elems.body.style.backgroundImage = `url(${src})`;
   setUIColor(src);
 }
 
-export { activateSearch, setClimateBackground };
+export { activateSearch, setClimateBackground, elems };
