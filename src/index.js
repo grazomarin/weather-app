@@ -41,10 +41,18 @@ async function displayData(data) {
 async function processSearch(unit, inputVal, lat, lon) {
   clearInterval(IntID);
   const location = inputVal;
-  const data = await requestData(unit, location, lat, lon);
-  displayData(data);
-  setClimateBackground(data.weather[0].id);
-  IntID = updateTime(elems.date, data.timezone);
+  requestData(unit, location, lat, lon)
+    .then((data) => {
+      displayData(data);
+      setClimateBackground(data.weather[0].id);
+      IntID = updateTime(elems.date, data.timezone);
+    })
+    .catch((err) => {
+      elems.error.style.translate = "0";
+      setTimeout(() => {
+        elems.error.style.translate = "120%";
+      }, 3000);
+    });
 }
 
 function checkUnit() {

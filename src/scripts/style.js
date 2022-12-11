@@ -23,6 +23,7 @@ const elems = {
   date: document.getElementById("date"),
   input: document.getElementById("search"),
   icon: document.getElementById("image"),
+  error: document.getElementById("error"),
   f: document.querySelector(".F"),
   c: document.querySelector(".C"),
   searchBtn: document.querySelector(".details-head-buttons-search"),

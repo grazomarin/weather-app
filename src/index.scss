@@ -134,9 +134,24 @@ body {
         padding: 0 $side-margin;
         translate: 150%;
         transition: all 0.7s ease;
+        position: relative;
 
         display: flex;
         align-items: center;
+
+        #error {
+          display: flex;
+          translate: 120%;
+          position: absolute;
+          width: 100%;
+          height: calc($search-dimensions / 2);
+          padding: 0 $side-margin;
+          background-color: $red;
+          top: $search-dimensions;
+          left: 0;
+          align-items: center;
+          transition: all 0.7s ease;
+        }
 
         &.active {
           translate: 0;
@@ -166,15 +181,18 @@ body {
         flex-flow: column;
         align-items: right;
         transition: all 0.7s ease;
-
         &-cont {
           display: flex;
         }
 
-        &_setDegree {
+        &_setUnit {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           width: calc($search-dimensions / 2);
           height: calc($search-dimensions / 2);
           cursor: pointer;
+          z-index: 1;
         }
 
         .active {
