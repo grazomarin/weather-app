@@ -115,7 +115,6 @@ function setClimateBackground(id, icon) {
   const iconArray = Array.from(`${icon}`);
   const firstNumStr = idArray[0];
   const stateOfDay = iconArray[iconArray.length - 1];
-  console.log(stateOfDay);
 
   let src;
   switch (firstNumStr) {

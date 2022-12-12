@@ -1,11 +1,9 @@
 import { apiKey } from "./secured";
 
-async function requestData(unit, location, lat, lon) {
+async function requestData(unit, location) {
   return new Promise((resolve, reject) => {
     const request = new Request(
-      `https://api.openweathermap.org/data/2.5/weather?${
-        location ? `q=${location}` : `lat=${lat}&lon=${lon}`
-      }&appid=${apiKey}&units=${unit}`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${unit}`,
       {
         mode: "cors",
       }
@@ -47,4 +45,42 @@ async function requestIcon(name) {
   }
 }
 
-export { requestData, requestIcon };
+function getUserPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  })
+    .then((data) => {
+      const lat = data.coords.latitude;
+      const lon = data.coords.longitude;
+      return { lat, lon };
+    })
+    .catch(() => {
+      return undefined;
+    });
+}
+
+function CoordToCity(lat, lon) {
+  return new Promise((resolve, reject) => {
+    const request = new Request(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`,
+      {
+        mode: "cors",
+      }
+    );
+
+    fetch(request)
+      .then((location) => {
+        console.log(location);
+        return location.json();
+      })
+      .then((json) => {
+        const city = json.city.split(" ");
+        resolve(city[0]);
+      })
+      .catch(() => {
+        reject(undefined);
+      });
+  });
+}
+
+export { requestData, requestIcon, getUserPosition, CoordToCity };

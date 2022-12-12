@@ -1,6 +1,11 @@
 import "./index.scss";
 import "./scripts/style";
-import { requestData, requestIcon } from "./scripts/api";
+import {
+  requestData,
+  requestIcon,
+  getUserPosition,
+  CoordToCity,
+} from "./scripts/api";
 import { round, tzToDate, updateTime } from "./scripts/functions";
 import {
   activateSearch,
@@ -13,20 +18,6 @@ import {
 
 let IntID;
 let locationGlob;
-
-function getUserPosition() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  })
-    .then((data) => {
-      const lat = data.coords.latitude;
-      const lon = data.coords.longitude;
-      return { lat, lon };
-    })
-    .catch(() => {
-      return undefined;
-    });
-}
 
 async function displayData(data) {
   const url = await requestIcon(data.weather[0].icon);
@@ -45,11 +36,11 @@ async function displayData(data) {
   elems.img.src = url;
 }
 
-async function processSearch(unit, inputVal, lat, lon) {
+async function processSearch(unit, inputVal) {
   clearInterval(IntID);
   const location = inputVal;
   showLoadingScreen();
-  requestData(unit, location, lat, lon)
+  requestData(unit, location)
     .then((data) => {
       displayData(data);
       setClimateBackground(data.weather[0].id, data.weather[0].icon);
@@ -85,28 +76,27 @@ elems.c.addEventListener("click", () => {
   if (elems.c.classList.contains("active")) return;
   elems.c.classList.add("active");
   elems.f.classList.remove("active");
-  Array.isArray(locationGlob)
-    ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
-    : processSearch(checkUnit(), locationGlob);
+  processSearch(checkUnit(), locationGlob);
 });
 
 elems.f.addEventListener("click", () => {
   if (elems.f.classList.contains("active")) return;
   elems.f.classList.add("active");
   elems.c.classList.remove("active");
-  Array.isArray(locationGlob)
-    ? processSearch(checkUnit(), undefined, locationGlob[0], locationGlob[1])
-    : processSearch(checkUnit(), locationGlob);
+  processSearch(checkUnit(), locationGlob);
 });
 
-(async () => {
-  const position = await getUserPosition();
-  if (position) {
-    const { lat, lon } = position;
-    locationGlob = [lat, lon];
-    processSearch("metric", undefined, lat, lon);
-  } else {
-    processSearch("metric", "moscow");
-    locationGlob = "moscow";
-  }
+(() => {
+  getUserPosition()
+    .then((lat, lon) => {
+      return CoordToCity(lat, lon);
+    })
+    .then((city) => {
+      locationGlob = city;
+      processSearch("metric", locationGlob);
+    })
+    .catch((err) => {
+      locationGlob = "New York";
+      processSearch("metric", "New York");
+    });
 })();
