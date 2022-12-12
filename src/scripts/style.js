@@ -110,8 +110,12 @@ function checkUnit() {
   return elems.c.classList.contains("active") ? "metric" : "imperial";
 }
 
-function setClimateBackground(id) {
-  const firstNumStr = Array.from(`${id}`)[0];
+function setClimateBackground(id, icon) {
+  const idArray = Array.from(`${id}`);
+  const iconArray = Array.from(`${icon}`);
+  const firstNumStr = idArray[0];
+  const stateOfDay = iconArray[iconArray.length - 1];
+  console.log(stateOfDay);
 
   let src;
   switch (firstNumStr) {
@@ -136,8 +140,13 @@ function setClimateBackground(id) {
       setTextColor(black);
       break;
     case "8":
-      src = day800;
-      setTextColor(black);
+      if (stateOfDay === "d") {
+        src = day800;
+        setTextColor(black);
+      } else if (stateOfDay === "n") {
+        src = night800;
+        setTextColor(white);
+      }
       break;
   }
   elems.body.style.backgroundImage = `url(${src})`;

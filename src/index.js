@@ -52,11 +52,12 @@ async function processSearch(unit, inputVal, lat, lon) {
   requestData(unit, location, lat, lon)
     .then((data) => {
       displayData(data);
-      setClimateBackground(data.weather[0].id);
+      setClimateBackground(data.weather[0].id, data.weather[0].icon);
       IntID = updateTime(elems.date, data.timezone);
       hideLoadingScreen();
     })
     .catch((err) => {
+      hideLoadingScreen();
       elems.error.style.translate = "0";
       setTimeout(() => {
         elems.error.style.translate = "120%";
