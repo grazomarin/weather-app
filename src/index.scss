@@ -255,3 +255,20 @@ body {
     }
   }
 }
+
+.load {
+  transform: scale(0);
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_icon {
+    width: $load-dimensions;
+    height: $load-dimensions;
+  }
+}

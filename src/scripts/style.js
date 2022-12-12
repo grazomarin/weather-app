@@ -6,6 +6,7 @@ import day500 from "../images/rain.jpg";
 import day300 from "../images/rain.jpg";
 import day200 from "../images/thunderstorm.jpg";
 import { FastAverageColor } from "fast-average-color";
+import loadSrc from "../images/loading.svg";
 
 const elems = {
   body: document.querySelector("body"),
@@ -32,7 +33,11 @@ const elems = {
   detailsBlock: document.querySelector(".details-block"),
   tempCont: document.querySelector(".main-info-primary"),
   infoCont: document.querySelector(".main-info"),
+  loadIcon: document.querySelector(".load_icon"),
+  loadBg: document.querySelector(".load"),
 };
+
+elems.loadIcon.src = loadSrc;
 
 function setUIColor(src) {
   const fac = new FastAverageColor();
@@ -93,6 +98,18 @@ function setTextColor(colorStr) {
   elems.input.style.borderColor = colorStr;
 }
 
+function showLoadingScreen() {
+  elems.loadBg.style.transform = "scale(1)";
+}
+
+function hideLoadingScreen() {
+  elems.loadBg.style.transform = "scale(0)";
+}
+
+function checkUnit() {
+  return elems.c.classList.contains("active") ? "metric" : "imperial";
+}
+
 function setClimateBackground(id) {
   const firstNumStr = Array.from(`${id}`)[0];
 
@@ -127,4 +144,11 @@ function setClimateBackground(id) {
   setUIColor(src);
 }
 
-export { activateSearch, setClimateBackground, elems };
+export {
+  activateSearch,
+  showLoadingScreen,
+  hideLoadingScreen,
+  checkUnit,
+  setClimateBackground,
+  elems,
+};

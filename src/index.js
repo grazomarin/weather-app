@@ -2,7 +2,14 @@ import "./index.scss";
 import "./scripts/style";
 import { requestData, requestIcon } from "./scripts/api";
 import { round, tzToDate, updateTime } from "./scripts/functions";
-import { activateSearch, setClimateBackground, elems } from "./scripts/style";
+import {
+  activateSearch,
+  showLoadingScreen,
+  hideLoadingScreen,
+  checkUnit,
+  setClimateBackground,
+  elems,
+} from "./scripts/style";
 
 let IntID;
 let locationGlob;
@@ -41,11 +48,13 @@ async function displayData(data) {
 async function processSearch(unit, inputVal, lat, lon) {
   clearInterval(IntID);
   const location = inputVal;
+  showLoadingScreen();
   requestData(unit, location, lat, lon)
     .then((data) => {
       displayData(data);
       setClimateBackground(data.weather[0].id);
       IntID = updateTime(elems.date, data.timezone);
+      hideLoadingScreen();
     })
     .catch((err) => {
       elems.error.style.translate = "0";
@@ -53,10 +62,6 @@ async function processSearch(unit, inputVal, lat, lon) {
         elems.error.style.translate = "120%";
       }, 3000);
     });
-}
-
-function checkUnit() {
-  return elems.c.classList.contains("active") ? "metric" : "imperial";
 }
 
 elems.searchBtn.addEventListener("click", () => {
