@@ -77,6 +77,12 @@ body {
       &-primary {
         display: flex;
         align-items: center;
+
+        .degreeSign {
+          @media (max-width: $mobile) {
+            position: absolute;
+          }
+        }
       }
 
       &-secondary {
