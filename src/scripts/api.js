@@ -13,7 +13,6 @@ async function requestData(unit, location) {
       .then(async (response) => {
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           resolve(data);
         } else {
           throw new Error("Enter a valid location");
@@ -27,7 +26,7 @@ async function requestData(unit, location) {
 
 async function requestIcon(name) {
   const request = new Request(
-    `http://openweathermap.org/img/wn/${name}@2x.png`,
+    `https://openweathermap.org/img/wn/${name}@2x.png`,
     {
       mode: "cors",
     }
@@ -70,7 +69,6 @@ function CoordToCity(lat, lon) {
 
     fetch(request)
       .then((location) => {
-        console.log(location);
         return location.json();
       })
       .then((json) => {
