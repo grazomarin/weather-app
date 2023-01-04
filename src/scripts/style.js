@@ -80,6 +80,7 @@ function handleTabletSize(size) {
 function handleMobileSize(size) {
   if (size.matches) {
     elems.infoCont.append(elems.icon);
+    activateSearch();
   }
 }
 

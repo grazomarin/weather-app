@@ -138,6 +138,9 @@ body {
         width: 100%;
         height: $search-dimensions;
         padding: 0 $side-margin;
+        @media (max-width: $mobile) {
+          translate: 0;
+        }
         translate: 150%;
         transition: all 0.7s ease;
         position: relative;
