@@ -123,6 +123,7 @@ body {
     flex-shrink: 0;
     gap: 50px;
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     overflow-y: auto;
     overflow-x: hidden;
 
