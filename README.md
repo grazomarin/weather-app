@@ -1,9 +1,9 @@
 # Weather Forecast 
 ## Stack
 
--- JS
--- Sass
--- Webpack
+- JS
+- Sass
+- Webpack
 
 ## About
 
