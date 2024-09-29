@@ -6,7 +6,7 @@
     "server-init": "webpack serve --open",
     "server": "webpack serve",
     "build": "webpack",
-    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "deploy": "git subtree push --prefix public origin gh-pages",
     "delete": "git push origin --delete gh-pages"
   },
   "repository": {

@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
-  entry: "./src/index.js",
+  entry: "./frontend/src/index.js",
   experiments: {
     topLevelAwait: true,
   },
@@ -35,11 +36,14 @@ module.exports = {
     ],
   },
   devServer: {
-    static: "./dist",
+    static: "./public",
     hot: true,
   },
   output: {
     filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public"),
   },
+  plugins: [
+    new Dotenv()
+  ]
 };

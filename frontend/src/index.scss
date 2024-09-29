@@ -1,0 +1,284 @@
+@use "./modules/index" as *;
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $alexandria;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: $h1-size;
+}
+
+h2 {
+  font-size: $h2-size;
+}
+
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+}
+
+html {
+  font-family: $alexandria;
+  color: $white;
+}
+
+body {
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.7s ease;
+  @media (max-width: $mobile) {
+    background-repeat: repeat-y;
+  }
+}
+
+#container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  @media (max-width: $mobile) {
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .main {
+    flex: 1 1 auto;
+    margin: 30px 10px 50px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (max-width: $mobile) {
+      gap: 20px;
+      width: 100%;
+      margin: 0;
+      justify-content: start;
+      padding: 25px 30px 45px;
+    }
+
+    &_companyName {
+      font-size: 1rem;
+    }
+
+    &-info {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      @media (max-width: $tablet) {
+        flex-direction: column;
+      }
+
+      &-primary {
+        display: flex;
+        align-items: center;
+
+        .degreeSign {
+          @media (max-width: $mobile) {
+            position: absolute;
+          }
+        }
+      }
+
+      &-secondary {
+        display: flex;
+        flex-flow: column;
+        @media (max-width: $mobile) {
+          gap: 10px;
+        }
+
+        &_location {
+          @media (max-width: $mobile) {
+            text-align: center;
+          }
+        }
+        &_location {
+          @media (max-width: $mobile) {
+            text-align: center;
+          }
+        }
+      }
+
+      &_image {
+        width: $icon-size;
+        @media (max-width: $mobile) {
+          order: -1;
+          width: 170px;
+          margin: -20px;
+          margin-bottom: -40px;
+        }
+      }
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: $details-size;
+    flex-shrink: 0;
+    gap: 50px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+
+    &-head {
+      display: flex;
+      justify-content: space-between;
+
+      &-searchCont {
+        width: 100%;
+        height: $search-dimensions;
+        padding: 0 $side-margin;
+        @media (max-width: $mobile) {
+          translate: 0;
+        }
+        translate: 150%;
+        transition: all 0.7s ease;
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        #error {
+          display: flex;
+          translate: 120%;
+          position: absolute;
+          width: 100%;
+          height: calc($search-dimensions / 2);
+          padding: 0 $side-margin;
+          background-color: $red;
+          top: $search-dimensions;
+          left: 0;
+          align-items: center;
+          transition: all 0.7s ease;
+        }
+
+        &.active {
+          translate: 0;
+        }
+
+        &_input {
+          width: 100%;
+          height: 36px;
+          color: $white;
+          font-size: 1rem;
+          background-color: transparent;
+          font-family: $alexandria;
+          border-bottom: 2px solid;
+          border-color: $white;
+          align-self: center;
+
+          &::placeholder {
+            font-family: $alexandria;
+            font-size: 1rem;
+            color: inherit;
+          }
+        }
+      }
+
+      &-buttons {
+        display: flex;
+        flex-flow: column;
+        align-items: right;
+        transition: all 0.7s ease;
+        &-cont {
+          display: flex;
+        }
+
+        &_setUnit {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: calc($search-dimensions / 2);
+          height: calc($search-dimensions / 2);
+          cursor: pointer;
+          z-index: 1;
+        }
+
+        .active {
+          filter: brightness(0.8);
+        }
+
+        &-search {
+          width: $search-dimensions;
+          height: $search-dimensions;
+          justify-self: right;
+          cursor: pointer;
+          z-index: 2;
+
+          &_searchIcon {
+            fill: $white;
+            width: 30px;
+            height: 30px;
+          }
+        }
+
+        &_setDegree,
+        &-search {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            filter: brightness(0.9);
+          }
+
+          &:active {
+            filter: brightness(0.8);
+          }
+        }
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    &-block {
+      display: flex;
+      flex-flow: column;
+      gap: 30px;
+      margin: 0 $side-margin;
+      padding-bottom: 30px;
+      border-bottom: 2px $brown solid;
+
+      ul {
+        display: flex;
+        flex-flow: column;
+        gap: 22px;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+
+.load {
+  transform: scale(0);
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_icon {
+    width: $load-dimensions;
+    height: $load-dimensions;
+  }
+}
