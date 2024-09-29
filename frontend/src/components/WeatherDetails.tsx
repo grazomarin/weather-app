@@ -1,56 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="main.js" defer></script>
-    <title>weather</title>
-  </head>
-  <body>
-    <div class="load">
-      <img class="load_icon" />
-    </div>
-    <div id="container">
-      <div class="main">
-        <h4 class="main_companyName">weather</h4>
-        <div class="main-info">
-          <div class="main-info-primary">
-            <h1>
-              <span id="temp"></span><span class="degreeSign">&#176;</span>
-            </h1>
-          </div>
-          <div class="main-info-secondary">
-            <h2 class="main-info-secondary_location" id="location"></h2>
-            <h4 class="main-info-secondary_date" id="date"></h4>
-          </div>
-          <img class="main-info_image" src="" alt="" id="image" />
-        </div>
-      </div>
+function WeatherDetails() {
 
-      <div class="details">
-        <div class="details-head">
-          <div class="details-head-searchCont">
+  return (
+      <div className="details">
+        <div className="details-head">
+          <div className="details-head-searchCont">
             <input
-              class="details-head-searchCont_input"
+              className="details-head-searchCont_input"
               type="text"
               placeholder="Search Location"
               id="search"
             />
             <div id="error">Enter a valid location</div>
           </div>
-          <div class="details-head-buttons">
-            <div class="details-head-buttons-search" for="location">
+          <div className="details-head-buttons">
+            <div className="details-head-buttons-search">
               <svg
-                class="details-head-buttons-search_searchIcon"
+                className="details-head-buttons-search_searchIcon"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                // xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px"
                 y="0px"
                 viewBox="0 0 487.95 487.95"
-                style="enable-background: new 0 0 487.95 487.95"
-                xml:space="preserve"
+                style={{background: "new 0 0 487.95 487.95"}}
+                // xml:space="preserve"
               >
                 <g>
                   <g>
@@ -63,19 +36,18 @@
                 </g>
               </svg>
             </div>
-            <div class="details-head-buttons-cont">
-              <h4 class="details-head-buttons_setUnit C active">
+            <div className="details-head-buttons-cont">
+              <h4 className="details-head-buttons_setUnit C active">
                 C<span>&#176;</span>
               </h4>
-              <h4 class="details-head-buttons_setUnit F">
+              <h4 className="details-head-buttons_setUnit F">
                 F<span>&#176;</span>
               </h4>
             </div>
           </div>
         </div>
-        <!-- details head end -->
 
-        <div class="details-block">
+        <div className="details-block">
           <h5>Weather Details</h5>
           <ul>
             <li>
@@ -105,8 +77,8 @@
           </ul>
         </div>
       </div>
-      <!-- details end -->
-    </div>
-    <!-- container end -->
-  </body>
-</html>
+  )
+
+}
+
+export default WeatherDetails;
