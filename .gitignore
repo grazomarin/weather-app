@@ -2,3 +2,7 @@ node_modules
 log.md
 secured.js
 .env
+.env*.local
+/old
+/new
+.vercel

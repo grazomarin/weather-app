@@ -1,12 +1,16 @@
-# Weather Forecast 
-## Stack
+# Weather App
 
-- JS
+## Built With
+
+- Vanilla JavaScript
 - Sass
 - Webpack
 
 ## About
 
-This app displays current weather details based on the User's current location using "OpenWeatherMap" APIs. To make the app more unique, I've added the ability to search locations and their weather details and added a changing website background that reflects the current weather state in a given location!
+This is a dynamic weather app that allows users to get the latest weather information based either on their current location or the location that they inputted. The special feature about this app is that it's dynamically styled. The weather app automatically picks a background image and color palette to match current weather condition. The app is fully optimized for mobile, tablet and desktop.
 
-**===> [Live Demo](https://grazomarin.github.io/weather-forecast/) <===**
+
+> ## [Live Demo (Old Version)](https://grazomarin-weatherapp-old.vercel.app) 
+
+### __THIS APP IS CURRENTLY UNDER REFACTORING. PLEASE SWITCH TO "react-go" BRANCH FOR LATEST PROGRESS__
