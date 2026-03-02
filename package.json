@@ -1,43 +1,31 @@
 {
-  "name": "weather-forecast",
-  "version": "1.0.0",
-  "description": "",
+  "name": "next-temp-app",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "server-init": "webpack serve --open",
-    "server": "webpack serve",
-    "build": "webpack",
-    "deploy": "git subtree push --prefix public origin gh-pages",
-    "delete": "git push origin --delete gh-pages"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/grazomarin/weather-forecast.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/grazomarin/weather-forecast/issues"
-  },
-  "homepage": "https://github.com/grazomarin/weather-forecast#readme",
-  "devDependencies": {
-    "@babel/core": "^7.20.5",
-    "@babel/preset-env": "^7.20.2",
-    "babel": "^6.23.0",
-    "babel-loader": "^9.1.0",
-    "css-loader": "^6.7.2",
-    "dotenv-webpack": "^8.1.0",
-    "eslint": "^8.28.0",
-    "prettier": "^2.8.0",
-    "sass": "^1.56.1",
-    "sass-loader": "^13.2.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.0",
-    "webpack-dev-server": "^4.11.1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "dateformat": "^5.0.3",
-    "fast-average-color": "^9.1.1"
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@tanstack/react-query": "^5.90.21",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "three": "^0.183.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
